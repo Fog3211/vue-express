@@ -27,11 +27,30 @@ export default {};
 .nav {
     display: flex;
     width: 100%;
-    height: 4rem;
-    line-height: 4rem;
+    height: 3rem;
+    line-height: 3.5rem;
+    border-bottom: 1px solid #e4e4e4;
 }
 .nav-item {
     flex: 1;
     text-align: center;
+    text-decoration: none;
+    color: #666666;
+    position: relative;
+}
+
+.nav .active {
+    color: #ffbb22;
+}
+
+.nav .active .line {
+    width: 3rem;
+    height: .1rem;
+    display: inline-block;
+    background: #ffbb22;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    margin-left: -1.5rem;
 }
 </style>

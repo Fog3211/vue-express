@@ -13,6 +13,8 @@
 <script>
 import Header from "./components/header/header";
 import nav from "./components/nav/nav";
+import axios from "axios";
+
 export default {
     name: "App",
     components: {
@@ -20,27 +22,41 @@ export default {
         "app-nav": nav
     },
     data() {
-      return {
-        poiInfo:{}
-      }
+        return {
+            poiInfo: {}
+        };
     },
-     created(){
-    // axios
+    created() {
+        // axios
+        axios({
+            url: "/api/goods",
+            method: "get"
+        })
+            .then(response => {
+                  // console.log(response)
+                if (response.status == 200) {
+                    this.poiInfo = response.data.data.poi_info;
+                    // console.log(this.poiInfo)
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
 
-    // fetch
-    fetch("/api/goods")
-      .then(res => {
-        return res.json()
-      })
-      .then(response =>{
-        // console.log(response)
-        if(response.code == 0){
-          // console.log(response.data)
-          this.poiInfo = response.data.poi_info
-          // console.log(this.poiInfo)
-        }
-      })
-  }
+        // fetch
+        // fetch("/api/goods")
+        //     .then(res => {
+        //         return res.json();
+        //     })
+        //     .then(response => {
+        //         // console.log(response)
+        //         if (response.code == 0) {
+        //             // console.log(response.data)
+        //             this.poiInfo = response.data.poi_info;
+        //             // console.log(this.poiInfo)
+        //         }
+        //     });
+    }
 };
 </script>
 
