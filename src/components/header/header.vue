@@ -95,6 +95,7 @@
         </transition>
         <!-- 公告详情 结束 -->
     </div>
+    
 </template>
 
 <script>
@@ -144,7 +145,7 @@ export default {
 @import url(../../common/css/icon.css);
 
 .header {
-    height: 150px;
+    height: 130px;
     padding-top: 10px;
 }
 
@@ -237,13 +238,13 @@ export default {
 /* 背景图片样式 */
 .header .bg-wrapper {
     width: 100%;
-    height: 150px;
+    height: 160px;
     position: absolute;
     left: 0;
     top: 0;
     z-index: -1;
     background-size: 100% 135%;
-    background-position: center -20px;
+    background-position: center -25px;
 }
 
 /* 主题内容 样式 */
@@ -293,7 +294,7 @@ export default {
 .header .bulletin-wrapper {
     height: 16px;
     padding: 0 10px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .header .bulletin-wrapper .icon {
