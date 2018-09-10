@@ -7,9 +7,9 @@
                     <p class="text">
                         <img class="icon" :src="item.icon" v-if="item.icon"> {{item.name}}
                     </p>
-                    <!-- <i class="num" v-show="calculateCount(item.spus)">
+                    <i class="num" v-show="calculateCount(item.spus)">
                         {{calculateCount(item.spus)}}
-                    </i> -->
+                    </i>
                 </li>
             </ul>
         </div>
@@ -36,7 +36,7 @@
                                 </p>
                             </div>
                             <div class="cartcontrol-wrapper">
-                                <!-- <app-cart-control :food="food"></app-cart-control> -->
+                                <app-cart-control :food="food"></app-cart-control>
                             </div>
                         </li>
                     </ul>
@@ -44,13 +44,16 @@
             </ul>
         </div>
         <!-- 购物车 -->
-        <!-- <app-shopcart :poiInfo="poiInfo" :selectFoods="selectFoods"></app-shopcart> -->
+        <app-shopcart :poiInfo="poiInfo" :selectFoods="selectFoods"></app-shopcart>
     </div>
 </template>
 
 <script>
 import axios from "axios";
 import BScroll from "better-scroll";
+import ShopCart from "../shopcart/Shopcart";
+import CartControl from "../Cartcontrol/CartControl";
+
 export default {
     data() {
         return {
@@ -59,8 +62,13 @@ export default {
             listHeight: [],
             menuScroll: {},
             foodScroll: {},
-            scrollY: 0
+            scrollY: 0,
+            poiInfo: {}
         };
+    },
+    components: {
+        "app-shopcart": ShopCart,
+        "app-cart-control": CartControl
     },
     created() {
         // axios
@@ -73,6 +81,8 @@ export default {
                     this.container =
                         response.data.data.container_operation_source;
                     this.goods = response.data.data.food_spu_tags;
+                    this.poiInfo = response.data.data.poi_info;
+
                     this.$nextTick(() => {
                         this.initScroll();
                         this.calculateHeight();
@@ -98,6 +108,17 @@ export default {
                     return i;
                 }
             }
+        },
+        selectFoods() {
+            let foods = [];
+            this.goods.forEach(myfoods => {
+                myfoods.spus.forEach(food => {
+                    if (food.count > 0) {
+                        foods.push(food);
+                    }
+                });
+            });
+            return foods;
         }
     },
     methods: {
@@ -105,11 +126,12 @@ export default {
             return "background-image: url(" + imgName + ");";
         },
         initScroll() {
-            this.menuScroll = new BScroll(this.$refs.menuScroll,{
-                click:true
+            this.menuScroll = new BScroll(this.$refs.menuScroll, {
+                click: true
             });
             this.foodScroll = new BScroll(this.$refs.foodScroll, {
-                probeType: 3
+                probeType: 3,
+                click: true
             });
             this.foodScroll.on("scroll", pos => {
                 // console.log(Math.abs(Math.round(pos.y)));
@@ -139,8 +161,14 @@ export default {
             // 滚动到对应元素的位置
             this.foodScroll.scrollToElement(element, 250);
         },
-        apppo() {
-            console.log(appp);
+        calculateCount(spus) {
+            let count = 0;
+            spus.forEach(food => {
+                if (food.count > 0) {
+                    count += food.count;
+                }
+            });
+            return count;
         }
     }
 };

@@ -27,8 +27,8 @@ export default {};
 .nav {
     display: flex;
     width: 100%;
-    height: 3rem;
-    line-height: 3.5rem;
+    height: 43px;
+    line-height: 43px;
     border-bottom: 1px solid #e4e4e4;
 }
 .nav-item {
@@ -45,7 +45,7 @@ export default {};
 
 .nav .active .line {
     width: 3rem;
-    height: .1rem;
+    height: 1px;
     display: inline-block;
     background: #ffbb22;
     position: absolute;

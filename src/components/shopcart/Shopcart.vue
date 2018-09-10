@@ -1,24 +1,24 @@
 <template>
-	<div class="shopcart-wrapper">
-		<!-- 底部左侧 -->
-		<div class="content-left">
-			<div class="logo-wrapper" :class="{'highligh':totalCount>0}">
-				<span class="icon-shopping_cart logo" :class="{'highligh':totalCount>0}"></span>
-				<i class="num" v-show="totalCount">{{totalCount}}</i>
-			</div>
-			<div class="desc-wrapper">
-				<p class="total-price" v-show="totalPrice">
-					￥{{totalPrice}}
-				</p>
-				<p class="tip" :class="{'highligh':totalCount>0}">另需{{poiInfo.shipping_fee_tip}}</p>
-			</div>
-		</div>
-		<!-- 底部右侧 -->
-		<div class="content-right" :class="{'highligh':totalCount>0}">
-			{{payStr}}
-		</div>
+    <div class="shopcart-wrapper">
+        <!-- 底部左侧 -->
+        <div class="content-left">
+            <div class="logo-wrapper" :class="{'highligh':totalCount>0}">
+                <i class="icon-shopping_cart logo" :class="{'highligh':totalCount>0}"></i>
+                <i class="num" v-show="totalCount">{{totalCount}}</i>
+            </div>
+            <div class="desc-wrapper">
+                <p class="total-price" v-show="totalPrice">
+                    ￥{{totalPrice}}
+                </p>
+                <p class="tip" :class="{'highligh':totalCount>0}" v-show="poiInfo.shipping_fee_tip">另需{{poiInfo.shipping_fee_tip}}元配送费</p>
+            </div>
+        </div>
+        <!-- 底部右侧 -->
+        <div class="content-right" :class="{'highligh':totalPrice>=poiInfo.shipping_fee_tip}">
+            {{payStr}}
+        </div>
 
-	</div>
+    </div>
 </template>
 
 <script>
@@ -26,7 +26,9 @@ export default {
     props: {
         poiInfo: {
             type: Object,
-            default: {}
+            default() {
+                return {};
+            }
         },
         selectFoods: {
             type: Array,
@@ -38,7 +40,6 @@ export default {
     computed: {
         totalCount() {
             let num = 0;
-
             this.selectFoods.forEach(food => {
                 num += food.count;
             });
@@ -52,10 +53,19 @@ export default {
             return total;
         },
         payStr() {
-            if (this.totalCount > 0) {
-                return "去结算";
+            if (this.totalPrice === 0) {
+                return `${this.poiInfo.min_price_tip}元起送`;
+            } else if (
+                Number(this.totalPrice) +
+                    Number(this.poiInfo.shipping_fee_tip) >=
+                Number(this.poiInfo.min_price_tip)
+            ) {
+                return `去结算${Number(this.totalPrice) +
+                    Number(this.poiInfo.shipping_fee_tip)}元`;
             } else {
-                return this.poiInfo.min_price_tip;
+                return `还差${Number(this.poiInfo.min_price_tip) -
+                    Number(this.totalPrice) -
+                    Number(this.poiInfo.shipping_fee_tip)}元起送`;
             }
         }
     }
@@ -82,7 +92,6 @@ export default {
 
 .shopcart-wrapper .content-right {
     flex: 0 0 110px;
-
     font-size: 15px;
     color: #bab9b9;
     line-height: 51px;
