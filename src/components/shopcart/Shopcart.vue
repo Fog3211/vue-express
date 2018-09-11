@@ -184,6 +184,7 @@ export default {
     flex: 0 0 110px;
     font-size: 15px;
     color: #bab9b9;
+    background-color: #19181b;
     line-height: 51px;
     text-align: center;
     font-weight: bold;
@@ -394,7 +395,7 @@ export default {
 .show-leave-active,
 .show-enter,
 .show-leave-to {
-    transition: all 0.4s linear;
+    transition: all .4s linear;
 }
 
 .shopcart .shopcart-mask {
