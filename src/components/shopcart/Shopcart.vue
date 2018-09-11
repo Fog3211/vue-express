@@ -392,10 +392,12 @@ export default {
 }
 
 .show-enter-active,
-.show-leave-active,
+.show-leave-active{
+    transition:  1s;
+}
 .show-enter,
 .show-leave-to {
-    transition: all .4s linear;
+    /* transform: translateY(-100%); */
 }
 
 .shopcart .shopcart-mask {

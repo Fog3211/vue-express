@@ -22,9 +22,9 @@
                     <!-- 具体的商品列表 -->
                     <ul>
                         <li v-for="(food,index) in item.spus" :key="index" class="food-item">
-                            <div class="icon" :style="head_bg(food.picture)"></div>
+                            <div class="icon" :style="head_bg(food.picture)" @click="showDetail(food)"></div>
                             <div class="content">
-                                <h3 class="name">{{food.name}}</h3>
+                                <h3 class="name" @click="showDetail(food)">{{food.name}}</h3>
                                 <p class="desc" v-if="food.description">{{food.description}}</p>
                                 <div class="extra">
                                     <span class="saled">{{food.month_saled_content}}</span>
@@ -45,6 +45,8 @@
         </div>
         <!-- 购物车 -->
         <app-shopcart :poiInfo="poiInfo" :selectFoods="selectFoods"></app-shopcart>
+        <!-- 商品详情 -->
+        <app-product-detail :food="selectFood" ref="foodView"></app-product-detail>
     </div>
 </template>
 
@@ -53,6 +55,7 @@ import axios from "axios";
 import BScroll from "better-scroll";
 import ShopCart from "../shopcart/Shopcart";
 import CartControl from "../cartcontrol/CartControl";
+import ProductDetail from "../productDetail/ProductDetail";
 
 export default {
     data() {
@@ -63,12 +66,14 @@ export default {
             menuScroll: {},
             foodScroll: {},
             scrollY: 0,
-            poiInfo: {}
+            poiInfo: {},
+            selectFood: {}
         };
     },
     components: {
         "app-shopcart": ShopCart,
-        "app-cart-control": CartControl
+        "app-cart-control": CartControl,
+        "app-product-detail": ProductDetail
     },
     created() {
         // axios
@@ -169,6 +174,11 @@ export default {
                 }
             });
             return count;
+        },
+        showDetail(food) {
+            // console.log(food);
+            this.selectFood = food;
+            this.$refs.foodView.showView();
         }
     }
 };
@@ -242,8 +252,9 @@ export default {
     font-size: 16px;
     line-height: 21px;
     color: #333333;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     padding-right: 27px;
+    display: inline;
 }
 
 .goods .foods-wrapper .food-list .food-item .content .desc {
