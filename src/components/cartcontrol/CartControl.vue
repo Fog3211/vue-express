@@ -34,7 +34,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 .cartcontrol {
     font-size: 0;
 }

@@ -52,7 +52,7 @@
 import axios from "axios";
 import BScroll from "better-scroll";
 import ShopCart from "../shopcart/Shopcart";
-import CartControl from "../Cartcontrol/CartControl";
+import CartControl from "../cartcontrol/CartControl";
 
 export default {
     data() {
