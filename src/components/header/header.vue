@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import Star from "../Star/Star";
+import Star from "../star/Star";
 export default {
     props: {
         poiInfo: {

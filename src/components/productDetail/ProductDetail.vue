@@ -269,7 +269,7 @@ export default {
 }
 
 .food-wrapper .comment-content {
-    max-height: 360px;
+    max-height: 250px;
     overflow: hidden;
 }
 .food-wrapper .rating-wrapper .comment-item {

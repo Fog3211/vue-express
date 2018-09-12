@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
+    <div id="app">
 
-    <app-header :poiInfo="poiInfo"></app-header>
+        <app-header :poiInfo="poiInfo"></app-header>
 
-    <app-nav></app-nav>
+        <app-nav :commentNum="commentNum"></app-nav>
 
-    <router-view></router-view>
+        <router-view></router-view>
 
-  </div>
+    </div>
 </template>
 
 <script>
@@ -23,7 +23,8 @@ export default {
     },
     data() {
         return {
-            poiInfo: {}
+            poiInfo: {},
+            commentNum: 0
         };
     },
     created() {
@@ -33,10 +34,24 @@ export default {
             method: "get"
         })
             .then(response => {
-                  // console.log(response)
+                // console.log(response)
                 if (response.status == 200) {
                     this.poiInfo = response.data.data.poi_info;
                     // console.log(this.poiInfo)
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        axios({
+            url: "/api/ratings",
+            method: "get"
+        })
+            .then(response => {
+                if (response.status == 200) {
+                    this.commentNum = response.data.data.comment_num;
+                    // console.log(this.commentNum);
                 }
             })
             .catch(error => {
