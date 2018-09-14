@@ -34,7 +34,9 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
+@import url(../../common/css/icon.css);
+
 .cartcontrol {
     font-size: 0;
 }

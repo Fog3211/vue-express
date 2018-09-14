@@ -21,7 +21,7 @@
 
             <!-- 购物车列表 -->
             <transition name="show">
-                <div class="shopcart-list" v-show="listShow" :class="{'show':listShow}">
+                <div class="shopcart-list" v-show="listShow" ref="shopcartList">
                     <div class="list-top" v-if="poiInfo.discounts2">
                         {{poiInfo.discounts2[0].info}}
                     </div>
@@ -67,7 +67,7 @@ import CartControl from "../cartcontrol/CartControl";
 export default {
     data() {
         return {
-            fold: true
+            showFlag: false
         };
     },
     props: {
@@ -119,13 +119,15 @@ export default {
             }
         },
         listShow() {
-            if (!this.totalCount) {
-                this.fold = true;
-                return false;
-            }
-            let show = !this.fold;
-            if (show) {
+            if (this.showFlag) {
                 this.$nextTick(() => {
+                    let listH = this.$refs.shopcartList.clientHeight;
+                    if (this.selectFoods) {
+                        this.$refs.shopcartList.style.top = "-" + listH + "px";
+                    } else {
+                        this.$refs.shopcartList.style.top = 0;
+                    }
+
                     if (!this.shopScroll) {
                         this.shopScroll = new BScroll(this.$refs.listContent, {
                             click: true
@@ -134,9 +136,13 @@ export default {
                         this.shopScroll.refresh();
                     }
                 });
+            } else {
+                this.$nextTick(() => {
+                    this.$refs.shopcartList.style.top = 0;
+                });
             }
-            // console.log("show " + show);
-            return show;
+
+            return this.showFlag;
         }
     },
     methods: {
@@ -145,23 +151,37 @@ export default {
             if (!this.totalCount) {
                 return;
             }
-            this.fold = !this.fold;
-            // console.log(this.fold);
+            this.showFlag = !this.showFlag;
         },
         clearAll() {
-            this.selectFoods.forEach(food => {
-                food.count = 0;
-            });
+            this.showFlag = false;
+
+            setTimeout(() => {
+                this.selectFoods.forEach(food => {
+                    food.count = 0;
+                });
+            }, 400);
         },
         hideMask() {
-            this.fold = true;
-            // console.log(this.fold)
+            this.showFlag = false;
+        }
+    },
+    watch: {
+        selectFoods() {
+            this.$nextTick(() => {
+                let listH = this.$refs.shopcartList.clientHeight;
+                if (this.selectFoods.length > 0) {
+                    this.$refs.shopcartList.style.top = "-" + listH + "px";
+                } else {
+                    this.showFlag = false;
+                }
+            });
         }
     }
 };
 </script>
 
-<style>
+<style scoped>
 @import url(../../common/css/icon.css);
 
 .shopcart-wrapper {
@@ -258,9 +278,7 @@ export default {
     top: 0;
     z-index: -1;
     width: 100%;
-}
-.shopcart-wrapper .shopcart-list.show {
-    transform: translateY(-100%);
+    /* transform: translateY(-100%); */
 }
 
 .shopcart-wrapper .shopcart-list .list-top {
@@ -392,12 +410,12 @@ export default {
 }
 
 .show-enter-active,
-.show-leave-active{
-    transition:  1s;
+.show-leave-active {
+    transition: 0.8s;
 }
 .show-enter,
 .show-leave-to {
-    /* transform: translateY(-100%); */
+    transform: translateY(100%);
 }
 
 .shopcart .shopcart-mask {

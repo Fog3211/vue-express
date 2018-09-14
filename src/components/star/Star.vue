@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .star .star-item {
     display: inline-block;
     width: 10px;

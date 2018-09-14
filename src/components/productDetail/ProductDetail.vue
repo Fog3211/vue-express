@@ -12,7 +12,7 @@
                 <div class="content-wrapper">
                     <h3 class="name">{{food.name}}</h3>
                     <p class="saled">{{food.month_saled_content}}</p>
-                    <img class="product" v-show="food.product_label_picture" :src="food.product_label_picture" />
+                    <img class="product" v-if="food.product_label_picture" :src="food.product_label_picture" />
                     <p class="price">
                         <span class="text">￥{{food.min_price}}</span>
                         <span class="unit">/{{food.unit}}</span>
@@ -118,6 +118,9 @@ export default {
 </script>
 
 <style scope>
+@import url(../../common/css/icon.css);
+
+
 .food-wrapper {
     position: fixed;
     left: 0;
@@ -130,7 +133,7 @@ export default {
 
 .food-detail-enter-active,
 .food-detail-leave-active {
-    transition: 0.7s;
+    transition: .7s;
 }
 .food-detail-enter,
 .food-detail-leave-to {
