@@ -1,6 +1,6 @@
 # vue-shopping-project
 
-> vue仿美团SPA页面
+> vue仿美团SPA页面  
 技术栈：vue全家桶+express
 
 ## Build Setup
