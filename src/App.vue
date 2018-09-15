@@ -5,7 +5,9 @@
 
         <app-nav :commentNum="commentNum"></app-nav>
 
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
 
     </div>
 </template>
@@ -16,7 +18,7 @@ import nav from "./components/nav/nav";
 import axios from "axios";
 
 export default {
-    name: "App",
+    name: "App",   
     components: {
         "app-header": Header,
         "app-nav": nav
@@ -30,7 +32,8 @@ export default {
     created() {
         // axios
         axios({
-            url: "/api/goods",
+            // url: "/api/goods",
+            url: "https://www.easy-mock.com/mock/5b9bb6c985a2240a058f4885/mock/goods",
             method: "get"
         })
             .then(response => {
@@ -45,7 +48,8 @@ export default {
             });
 
         axios({
-            url: "/api/ratings",
+            // url: "/api/ratings",
+            url: "https://www.easy-mock.com/mock/5b9bb6c985a2240a058f4885/mock/ratings",
             method: "get"
         })
             .then(response => {

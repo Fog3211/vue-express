@@ -95,7 +95,8 @@ export default {
     },
     created() {
         axios({
-            url: "/api/ratings",
+            // url: "/api/ratings",
+            url: "https://www.easy-mock.com/mock/5b9bb6c985a2240a058f4885/mock/ratings",
             method: "get"
         })
             .then(response => {

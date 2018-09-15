@@ -80,7 +80,8 @@ export default {
     },
     created() {
         axios({
-            url: "/api/seller",
+            // url: "/api/seller",
+            url: "https://www.easy-mock.com/mock/5b9bb6c985a2240a058f4885/mock/sellers",
             method: "get"
         })
             .then(response => {
