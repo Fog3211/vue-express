@@ -120,7 +120,7 @@ export default {
 .seller {
     position: absolute;
     left: 0;
-    top: 191px;
+    top: 211px;
     bottom: 0px;
     width: 100%;
     background: #f4f4f4;

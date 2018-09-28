@@ -190,7 +190,7 @@ export default {
 .goods {
     display: flex;
     position: absolute;
-    top: 200px;
+    top: 211px;
     bottom: 51px;
     overflow: hidden;
     width: 100%;
