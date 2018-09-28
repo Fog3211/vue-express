@@ -1,7 +1,9 @@
 # vue-shopping-project
 
 > vue仿美团SPA页面  
-技术栈：vue全家桶+express
+技术栈：vue全家桶+express  
+
+- [在线预览](https://fog3211.github.io/vue-express/dist/index.html)
 
 ## Build Setup
 
@@ -21,5 +23,3 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-
-- [在线预览](https://fog3211.github.io/vue-express/dist/index.html)
