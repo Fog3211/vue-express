@@ -3,7 +3,7 @@
 > vue仿美团SPA页面  
 技术栈：vue全家桶+express  
 
-- [在线预览](https://fog3211.github.io/vue-express/dist/index.html)
+- [在线预览](https://site.fog3211.com/vue-express/index.html)
 
 ## Build Setup
 
